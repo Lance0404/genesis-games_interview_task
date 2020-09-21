@@ -10,11 +10,11 @@ abstract public class Employee {
         this.employeeType = employeeType;
     }
 
-    public boolean isAvalibility() {
+    public boolean isAvailability() {
         return availability;
     }
 
-    public void setAvalibility(boolean availability) {
+    public void setAvailability(boolean availability) {
         this.availability = availability;
     }
 

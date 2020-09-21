@@ -6,41 +6,51 @@ public class CallService {
     private Employee techLead;
     private Employee productManager;
 
-    public void handle(EmployeeType employeeType){
+    public void handleByEmployeeType(EmployeeType employeeType) throws Exception{
+        System.out.println("method handleByEmployeeType( " + employeeType + " ) is called");
         if (employeeType == EmployeeType.FRESHER){
             synchronized (freshers){
                 for (Employee fresher: freshers) {
-                    if (fresher.isAvalibility()){
-                        fresher.setAvalibility(false);
-                        if (!handle(fresher)){ handle(techLead);}
-                        fresher.setAvalibility(true);
+                    if (fresher.isAvailability()){
+                        System.out.println(fresher.toString() + " is available");
+                        fresher.setAvailability(false);
+                        if (!handleByEmployee(fresher)){
+                            handleByEmployeeType(EmployeeType.TECHLEAD);
+                        }
+                        fresher.setAvailability(true);
+                        return;
                     }
                 }
-                handle(techLead);
+                handleByEmployeeType(EmployeeType.TECHLEAD);
             }
         } else if (employeeType == EmployeeType.TECHLEAD) {
             synchronized (techLead){
-                if (techLead.isAvalibility()){
-                    techLead.setAvalibility(false);
-                    if (!handle(techLead)){
-                        handle(productManager);
+                if (techLead.isAvailability()){
+                    System.out.println(techLead.toString() + " is available");
+                    techLead.setAvailability(false);
+                    if (!handleByEmployee(techLead)){
+                        handleByEmployeeType(EmployeeType.PRODUCTMANAGER);
                     }
-                    techLead.setAvalibility(true);
+                    techLead.setAvailability(true);
                 }
             }
         } else if (employeeType == EmployeeType.PRODUCTMANAGER) {
             synchronized (productManager) {
-                if (productManager.isAvalibility()){
-                    productManager.setAvalibility(false);
-                    handle(productManager);
-                    productManager.setAvalibility(true);
+                if (productManager.isAvailability()){
+                    System.out.println(productManager.toString() + " is available");
+                    productManager.setAvailability(false);
+                    if (!handleByEmployee(productManager)){
+                        productManager.setAvailability(true);
+                        throw new Exception("PRODUCT MANAGER failed to handle the call");
+                    }
+                    productManager.setAvailability(true);
                 }
             }
         }
 
     }
 
-    public boolean handle(Employee employee){
+    public boolean handleByEmployee(Employee employee){
 //        System.out.println("call handled by " + employee.toString());
         if (getRandomIntBetweenRange(1,6) == 1) {
             System.out.println("call handled by " + employee.toString() + " succeeded");

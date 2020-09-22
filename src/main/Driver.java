@@ -1,7 +1,10 @@
+package main;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Driver {
+    final static int THREAD_NUM = 10;
 
     public static void main(String[] args){
         List<Employee> freshers = EmployeeFactory.createEmployees(EmployeeType.FRESHER, 3);
@@ -15,18 +18,15 @@ public class Driver {
 
         List<Thread> threadsOfCalls = new ArrayList<>();
 
-        for (int i = 0; i < 3; i++) {
+//        prepare threads of jobs
+        for (int i = 0; i < THREAD_NUM; i++) {
             Thread tmp = new Thread(() -> {
-                try {
-                    callService.handleByEmployeeType(EmployeeType.FRESHER);
-                } catch (Exception ex) {
-                    System.err.println(ex);
-                }
-
+                    callService.handleByFresher();
             });
             threadsOfCalls.add(tmp);
         }
 
+//        start threads
         for (Thread call: threadsOfCalls) {
             call.start();
             System.out.println(call + " started");

@@ -1,15 +1,10 @@
-package test;
-
-import main.CallService;
-import main.Employee;
-import main.EmployeeFactory;
-import main.EmployeeType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import java.util.List;
+import org.mockito.Mockito;
+
 import static org.junit.Assert.assertFalse;
 
 public class CallServiceTest {
@@ -36,5 +31,6 @@ public class CallServiceTest {
     public void testHandleByFresher(){
         Boolean ret = callService.handleByFresher();
         assertFalse(ret);
+//        Mockito.reset();
     }
 }

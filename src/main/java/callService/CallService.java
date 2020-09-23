@@ -1,3 +1,7 @@
+package callService;
+
+import employee.Employee;
+
 import java.util.List;
 
 public class CallService {
@@ -7,7 +11,7 @@ public class CallService {
     private Employee productManager;
     private CallServiceUtil callServiceUtil;
 
-    CallService(List<Employee> freshers, Employee techLead, Employee productManager, CallServiceUtil callServiceUtil){
+    public CallService(List<Employee> freshers, Employee techLead, Employee productManager, CallServiceUtil callServiceUtil){
         this.freshers = freshers;
         this.techLead = techLead;
         this.productManager = productManager;

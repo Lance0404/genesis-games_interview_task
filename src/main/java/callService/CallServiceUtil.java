@@ -1,6 +1,10 @@
+package callService;
+
+import employee.Employee;
+
 public class CallServiceUtil {
 
-    boolean handleByEmployee(Employee employee){
+    public boolean handleByEmployee(Employee employee){
 //        System.out.println("call handled by " + employee.toString());
         if (getRandomIntBetweenRange(1,6) == 1) {
             System.out.println("call handled by " + employee.toString() + " succeeded");

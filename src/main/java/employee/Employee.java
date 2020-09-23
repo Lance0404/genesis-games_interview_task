@@ -1,3 +1,5 @@
+package employee;
+
 abstract public class Employee {
     private EmployeeType employeeType;
     private boolean availability = true;

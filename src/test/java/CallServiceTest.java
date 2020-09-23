@@ -62,4 +62,22 @@ public class CallServiceTest {
         Mockito.verify(callServiceUtil, Mockito.times(1)).handleByEmployee(Mockito.any(TechLead.class));
         assertTrue(result);
     }
+
+    @Test
+    public void testHandleByFresherFailedTechLeadFailedProductManagerSucceeded(){
+
+        // given
+        Mockito.when(callServiceUtil.handleByEmployee(Mockito.any(Fresher.class))).thenReturn(false);
+        Mockito.when(callServiceUtil.handleByEmployee(Mockito.any(TechLead.class))).thenReturn(false);
+        Mockito.when(callServiceUtil.handleByEmployee(Mockito.any(ProductManager.class))).thenReturn(true);
+
+        // when
+        boolean result = callService.handleByFresher();
+
+        // then
+        Mockito.verify(callServiceUtil, Mockito.times(1)).handleByEmployee(Mockito.eq(freshers.get(0)));
+        Mockito.verify(callServiceUtil, Mockito.times(1)).handleByEmployee(Mockito.any(TechLead.class));
+        Mockito.verify(callServiceUtil, Mockito.times(1)).handleByEmployee(Mockito.any(ProductManager.class));
+        assertTrue(result);
+    }
 }

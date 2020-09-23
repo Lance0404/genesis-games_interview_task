@@ -8,12 +8,8 @@ public class Driver {
         List<Employee> freshers = EmployeeFactory.createEmployees(EmployeeType.FRESHER, 3);
         Employee techLead = EmployeeFactory.createEmployee(EmployeeType.TECHLEAD);
         Employee productManager = EmployeeFactory.createEmployee(EmployeeType.PRODUCTMANAGER);
-
-        CallService callService = new CallService();
-        callService.setFreshers(freshers);
-        callService.setTechLead(techLead);
-        callService.setProductManager(productManager);
-
+        CallServiceUtil callServiceUtil = new CallServiceUtil();
+        CallService callService = new CallService(freshers, techLead, productManager, callServiceUtil);
         List<Thread> threadsOfCalls = new ArrayList<>();
 
 //        prepare threads of jobs

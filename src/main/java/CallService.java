@@ -5,6 +5,14 @@ public class CallService {
     private List<Employee> freshers;
     private Employee techLead;
     private Employee productManager;
+    private CallServiceUtil callServiceUtil;
+
+    CallService(List<Employee> freshers, Employee techLead, Employee productManager, CallServiceUtil callServiceUtil){
+        this.freshers = freshers;
+        this.techLead = techLead;
+        this.productManager = productManager;
+        this.callServiceUtil = callServiceUtil;
+    }
 
     public boolean handleByFresher(){
         synchronized (freshers){
@@ -12,10 +20,10 @@ public class CallService {
                 if (fresher.isAvailability()){
                     System.out.println(fresher.toString() + " is available");
                     fresher.setAvailability(false);
-                    if (handleByEmployee(fresher)){
+                    if (callServiceUtil.handleByEmployee(fresher)){
                         fresher.setAvailability(true);
                         return true;
-                    } else{
+                    } else {
                         fresher.setAvailability(true);
                         return false;
                     }
@@ -31,7 +39,7 @@ public class CallService {
             if (techLead.isAvailability()){
                 System.out.println(techLead.toString() + " is available");
                 techLead.setAvailability(false);
-                if (handleByEmployee(techLead)){
+                if (callServiceUtil.handleByEmployee(techLead)){
                     techLead.setAvailability(true);
                     return true;
                 } else {
@@ -50,7 +58,7 @@ public class CallService {
             if (productManager.isAvailability()){
                 System.out.println(productManager.toString() + " is available");
                 productManager.setAvailability(false);
-                if (handleByEmployee(productManager)){
+                if (callServiceUtil.handleByEmployee(productManager)){
                     productManager.setAvailability(true);
                     return true;
                 } else {
@@ -63,25 +71,8 @@ public class CallService {
         }
     }
 
-    private boolean handleByEmployee(Employee employee){
-//        System.out.println("call handled by " + employee.toString());
-        if (getRandomIntBetweenRange(1,6) == 1) {
-            System.out.println("call handled by " + employee.toString() + " succeeded");
-            return true;
-        } else {
-            System.out.println("call handled by " + employee.toString() + " failed");
-            return false;
-        }
-    }
-
-    private int getRandomIntBetweenRange(int min, int max){
-        int randomValue = (int)(Math.random()*((max-min)+1))+min;
-        System.out.println("randomValue " + randomValue);
-        return randomValue;
-    }
-
     public void setFreshers(List<Employee> freshers) {
-            this.freshers = freshers;
+        this.freshers = freshers;
     }
 
     public void setTechLead(Employee techLead) {
